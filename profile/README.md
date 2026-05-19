@@ -9,7 +9,9 @@
 [![Spec](https://img.shields.io/badge/spec-v0.1-orange.svg)](https://github.com/Compliance-to-Architecture/framework)
 [![Website](https://img.shields.io/badge/site-compliancetoarchitecture.com-1F6FEB.svg)](https://compliancetoarchitecture.com)
 [![Frameworks](https://img.shields.io/badge/frameworks-25-success.svg)](https://github.com/Compliance-to-Architecture/framework)
+[![Layers](https://img.shields.io/badge/layers-13%20%2B%202%20cross--cutting-1F6FEB.svg)](https://github.com/Compliance-to-Architecture/ontology)
 [![Sector packs](https://img.shields.io/badge/sector%20packs-3-success.svg)](https://github.com/Compliance-to-Architecture/sector-packs)
+[![Star](https://img.shields.io/github/stars/Compliance-to-Architecture/framework?style=social)](https://github.com/Compliance-to-Architecture/framework)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contributing)
 
 </div>
@@ -24,27 +26,34 @@ The **Compliance-to-Architecture Framework™** is an open, machine-readable bri
 | --- | --- | --- |
 | [`framework`](https://github.com/Compliance-to-Architecture/framework) | 25 framework dictionaries (EU AI Act, ISO 42001, ISO 27001, ISO 27701, GDPR, UK GDPR, HIPAA, SOC 2, SOC 1, PCI DSS, NIST AI RMF, NIST CSF, DORA, NIS2, EU CRA, CCPA, LGPD, DPDP India, PIPL China, APPI Japan, Privacy Act AU, HF model-card), crosswalks, policy-as-code compile targets | Apache-2.0 |
 | [`ontology`](https://github.com/Compliance-to-Architecture/ontology) | JSON-LD ontology, schemas, IaC examples (AWS · GCP · Azure · Cloudflare), SPEC.md, METHODOLOGY.md | Apache-2.0 |
-| [`sector-packs`](https://github.com/Compliance-to-Architecture/sector-packs) | Vertical bundles — maritime, legal, oil & gas. Frameworks + rule packs + evidence templates per sector | Apache-2.0 |
-| [`dictionaries`](https://github.com/Compliance-to-Architecture/dictionaries) | Canonical taxonomies — actor-role, evidence-type, control-category, obligation-category, evidence-frequency, reason-code, authority-category, architecture-capability | Apache-2.0 |
-| [`playbooks`](https://github.com/Compliance-to-Architecture/playbooks) | Skill files + worked examples for building compliance-engine integrations | Apache-2.0 |
+| [`sector-packs`](https://github.com/Compliance-to-Architecture/sector-packs) | Vertical bundles — maritime, legal, oil & gas | Apache-2.0 |
+| [`dictionaries`](https://github.com/Compliance-to-Architecture/dictionaries) | 8 canonical taxonomies — actor-role, evidence-type, control-category, etc. | Apache-2.0 |
+| [`playbooks`](https://github.com/Compliance-to-Architecture/playbooks) | Skill files + worked examples | Apache-2.0 |
 
 ---
 
-## The 12-layer model
+## The 13-layer model (L0 → L12)
+
+The chain runs top-to-bottom; each layer feeds the next.
 
 ```
-  L1  Authority         — who issues the obligation (regulator, board, contract)
-  L2  Jurisdiction      — where the obligation applies (geo, sector, asset class)
-  L3  Risk              — the harm the obligation protects against
-  L4  Obligation        — the canonical "must" / "shall" statement
-  L5  Control           — the technical / procedural mitigation
-  L6  Mitigation        — the residual-risk treatment
-  L7  Architecture      — the system surface that bears the control
-  L8  Policy-as-Code    — Cerbos / OPA / Cedar / Rego that enforces the control
-  L9  Workflow          — the operational procedure
-  L10 Evidence          — the artefact produced
-  L11 Audit-Trail       — the immutable record of every decision
-  L12 Audit-Pack        — the auditor-ready bundle
+  L0   Risk / Harm        — what could go wrong, to whom, how bad (likelihood × impact)
+  L1   Authority          — who issues the obligation (regulator, board, contract)
+  L2   Jurisdiction       — where the obligation has force
+  L3   Applicability      — does it apply to this org / product / activity?
+  L4   Obligation         — canonical "must" / "shall" statement
+  L5   Control            — the technical / procedural mitigation
+  L6   Mitigation         — how the control reduces the risk (residual delta)
+  L7   Architecture       — the system surface that bears the control
+  L8   Policy-as-Code     — Cerbos / OPA / Cedar that enforces at runtime
+  L9   Workflow           — operational procedure (four-eyes, approvals)
+  L10  Evidence           — the produced artefact (one of 16 typed kinds)
+  L11  Audit-Trail        — immutable record of every decision
+  L12  Audit-Pack         — auditor-ready bundle for hand-off
+       ────────────────────────────────────────────────────────────────────
+       + 2 cross-cutting layers:
+       · AI / System Governance — model-cards, human oversight, post-market monitoring
+       · Runtime Monitoring     — drift detectors, staleness alerts, evidence-on-event
 ```
 
 Each layer is a typed node class in the [ontology](https://github.com/Compliance-to-Architecture/ontology). Edges between layers are TYPED — crosswalks across frameworks are first-class graph entities, queryable via GraphQL / SPARQL.
@@ -70,6 +79,8 @@ Boards adopt policies. Auditors sample controls quarterly. Engineers ship daily.
 | **Platform engineer** | Compile policy-as-code (Cerbos · OPA · Cedar) from the [dictionaries](https://github.com/Compliance-to-Architecture/dictionaries) control catalogue. |
 | **Executive / board** | One risk register, multiple authorities. Composite index drills down to obligation → control → evidence. |
 
+Test your knowledge with the [6-question quiz on compliancetoarchitecture.com](https://compliancetoarchitecture.com#quiz).
+
 ---
 
 ## Contributing
@@ -77,15 +88,7 @@ Boards adopt policies. Auditors sample controls quarterly. Engineers ship daily.
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#)
 [![Code of conduct](https://img.shields.io/badge/code%20of%20conduct-Contributor%20Covenant-purple.svg)](https://www.contributor-covenant.org/)
 
-By contributing you agree your contribution is Apache-2.0. Open a PR against the relevant repo:
-
-- New framework or crosswalk update → [`framework`](https://github.com/Compliance-to-Architecture/framework)
-- Ontology schema change → [`ontology`](https://github.com/Compliance-to-Architecture/ontology)
-- New sector pack → [`sector-packs`](https://github.com/Compliance-to-Architecture/sector-packs)
-- Dictionary term addition → [`dictionaries`](https://github.com/Compliance-to-Architecture/dictionaries)
-- Skill / worked example → [`playbooks`](https://github.com/Compliance-to-Architecture/playbooks)
-
-Larger / cross-repo proposals: open an issue under `framework` with a `proposal:` prefix and CC the relevant repo maintainers.
+By contributing you agree your contribution is Apache-2.0.
 
 ---
 
@@ -93,7 +96,7 @@ Larger / cross-repo proposals: open an issue under `framework` with a `proposal:
 
 Upstream master: [ReguNav/app](https://github.com/ReguNav/app) (private, commercial SaaS). The five public repos here are mirrored from `packages/*` of that monorepo on each release.
 
-Trademark: "Compliance-to-Architecture Framework", "Compliance-to-Architecture Graph", "ReguNav", "Code Constitution" are trademarks of Regunav Inc. The framework spec and ontology are Apache-2.0; the trademarks are not licensed (no consumer of the spec gets a trademark licence — the marks identify the original publishers).
+Trademark: "Compliance-to-Architecture Framework", "Compliance-to-Architecture Graph", "ReguNav", "Code Constitution" are trademarks of Regunav Inc. The framework spec and ontology are Apache-2.0; the trademarks are NOT licensed (no consumer of the spec gets a trademark licence — the marks identify the original publishers).
 
 ---
 
